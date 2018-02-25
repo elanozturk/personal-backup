@@ -1,17 +1,19 @@
-# /etc/profile.d/ssh-telegram.sh
-USERID="<target_user_id>"
-KEY="<bot_private_key>"
+# nano /etc/profile.d/ssh-telegram.sh
+# install jq to parse JSON from ipinfo.io
+# sudo service ssh restart
+USERID="xxx"
+KEY="xxx"
 TIMEOUT="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 DATE_EXEC="$(date "+%d %b %Y %H:%M")"
 TMPFILE='/tmp/ipinfo-$DATE_EXEC.txt'
 if [ -n "$SSH_CLIENT" ]; then
-	IP=$(echo $SSH_CLIENT | awk '{print $1}')
-	PORT=$(echo $SSH_CLIENT | awk '{print $3}')
+	IP=$(awk '{print $1}' <<< $SSH_CLIENT)
+	PORT=$(awk '{print $3}' <<< $SSH_CLIENT)
 	HOSTNAME=$(hostname -f)
 	IPADDR=$(hostname -I | awk '{print $1}')
 	curl http://ipinfo.io/$IP -s -o $TMPFILE
-	CITY=$(cat $TMPFILE | jq '.city' | sed 's/"//g')
+	CITY=$(jq -r '.city' < $TMPFILE)
 	REGION=$(cat $TMPFILE | jq '.region' | sed 's/"//g')
 	COUNTRY=$(cat $TMPFILE | jq '.country' | sed 's/"//g')
 	ORG=$(cat $TMPFILE | jq '.org' | sed 's/"//g')
