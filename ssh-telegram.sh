@@ -1,5 +1,4 @@
-# save it as /etc/profile.d/ssh-telegram.sh
-# use jq to parse JSON from ipinfo.io
+# /etc/profile.d/ssh-telegram.sh
 USERID="<target_user_id>"
 KEY="<bot_private_key>"
 TIMEOUT="10"
