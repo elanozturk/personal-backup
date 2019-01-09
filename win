@@ -1,1 +1,0 @@
-cat links.txt | sed -e '/akin/d' -e '/haber/d' -e '/face/d' -e '/haber/d' -e '/twitter/d' -e '/linkedin/d' -e '/bando/d' -e '/maskot/d' -e '/sors/d' -e '/you/d' >> links.txt
